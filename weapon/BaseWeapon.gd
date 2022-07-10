@@ -1,16 +1,35 @@
 extends Node2D
+class_name Weapon
 
+export(float) var damage: float
+export(float) var knockback_magnitude: float
+export(bool) var has_alternate_fire: bool = false
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+onready var sprite = $Sprite
 
+var is_ready := true
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+signal alternate_fire_pressed
+signal alternate_fire_released
 
+func initialise():
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func gun_fired():
+	is_ready = false
+
+func hide():
+	sprite.visible = false
+	
+func show():
+	sprite.visible = true
+	
+func alternate_fire(_aimcast: RayCast2D, _player: KinematicBody2D, is_press: bool):
+	if is_press:
+		emit_signal("alternate_fire_pressed")
+	else:
+		emit_signal("alternate_fire_released")
+
+# Just here for an overridable function signature
+func fire(_aimcast: RayCast2D, _player: KinematicBody2D, _is_press: bool):
+	pass

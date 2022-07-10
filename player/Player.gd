@@ -14,8 +14,10 @@ const aimcast_length: int = 10000
 onready var aimcast: RayCast2D = $AimCast
 
 func _input(event):
-	if event.is_action_pressed("fire"):
-		print('pew pew pew')
+	if event.is_action("fire"):
+		fire_weapon(event.is_pressed())
+	if event.is_action("alt_fire"):
+		alt_fire_weapon(event.is_pressed())
 
 func _physics_process(_delta):
 	# Reset position to last physics frame before applying movement
@@ -54,6 +56,8 @@ func spawn_at(spawn_position: Vector2):
 	unextrapolated_physics_position = spawn_position
 # warning-ignore:return_value_discarded
 	hand.connect("hand_position_updated", self, "_on_hand_position_update")
+	for weapon in hand.get_weapons():
+		weapon.initialise()
 
 func handle_movement_extrapolation():
 	# Extrapolate the player's position in space between physics frames to smooth motion on framerates higher than the physics tickrate
@@ -63,3 +67,11 @@ func handle_movement_extrapolation():
 func _on_hand_position_update():
 	var to_hand = (hand.global_transform.origin - global_transform.origin).normalized()
 	aimcast.cast_to = to_hand * aimcast_length
+
+func fire_weapon(is_press: bool):
+	for weapon in hand.get_weapons():
+		weapon.fire(aimcast, self, is_press)
+
+func alt_fire_weapon(is_press: bool):
+	for weapon in hand.get_weapons():
+		weapon.alternate_fire(aimcast, self, is_press)
