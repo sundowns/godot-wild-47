@@ -8,6 +8,15 @@ export(float) var acceleration: float = 80 # per physics tick
 export(float) var max_speed: float = 450
 export(float) var ground_friction: float = 15.0 # per physics tick
 
+onready var hand: Hand = $Hand
+
+const aimcast_length: int = 10000
+onready var aimcast: RayCast2D = $AimCast
+
+func _input(event):
+	if event.is_action_pressed("fire"):
+		print('pew pew pew')
+
 func _physics_process(_delta):
 	# Reset position to last physics frame before applying movement
 	global_transform.origin = unextrapolated_physics_position
@@ -43,8 +52,14 @@ func apply_velocity():
 func spawn_at(spawn_position: Vector2):
 	global_transform.origin = spawn_position
 	unextrapolated_physics_position = spawn_position
+# warning-ignore:return_value_discarded
+	hand.connect("hand_position_updated", self, "_on_hand_position_update")
 
 func handle_movement_extrapolation():
 	# Extrapolate the player's position in space between physics frames to smooth motion on framerates higher than the physics tickrate
 	global_transform.origin = unextrapolated_physics_position
 	var _no_return = move_and_collide(velocity * ((1.0 / float(Engine.iterations_per_second)) * Engine.get_physics_interpolation_fraction()) * Engine.time_scale)
+
+func _on_hand_position_update():
+	var to_hand = (hand.global_transform.origin - global_transform.origin).normalized()
+	aimcast.cast_to = to_hand * aimcast_length
