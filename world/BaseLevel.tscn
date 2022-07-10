@@ -3,14 +3,22 @@
 [ext_resource path="res://world/world_tileset.tres" type="TileSet" id=1]
 
 [node name="World" type="Node2D"]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Background" type="ColorRect" parent="."]
 margin_right = 2196.0
 margin_bottom = 2196.0
 color = Color( 0.380392, 0.411765, 0.47451, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 393226, 0, 0, 393236, 0, 0, 458777, 0, 0, 524295, 0, 0, 524312, 0, 0, 524313, 0, 0, 589831, 0, 0, 589839, 0, 0, 589848, 0, 0, 655367, 0, 0, 655375, 0, 0, 655383, 0, 0, 655384, 0, 0, 720903, 0, 0, 720904, 0, 0, 720919, 0, 0, 786440, 0, 0, 786441, 0, 0, 786454, 0, 0, 786455, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851987, 0, 0, 851988, 0, 0, 851989, 0, 0, 851990, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
