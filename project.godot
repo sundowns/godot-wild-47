@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://player/Player.gd"
 }, {
+"base": "RigidBody2D",
+"class": "Projectile",
+"language": "GDScript",
+"path": "res://weapon/projectile/Projectile.gd"
+}, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
@@ -38,6 +43,7 @@ _global_script_class_icons={
 "Enemy": "",
 "Hand": "",
 "Player": "",
+"Projectile": "",
 "StateMachine": "",
 "Weapon": ""
 }
