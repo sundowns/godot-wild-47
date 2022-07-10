@@ -5,9 +5,7 @@ class_name Enemy
 export(float) var max_health: float = 100
 export(float) var move_speed: float = 5.0
 
-onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var state_machine: StateMachine = $StateMachine
-onready var collision_shape: CollisionShape2D = $CollisionShape2D
 onready var health = max_health
 
 var velocity = Vector2.ZERO
