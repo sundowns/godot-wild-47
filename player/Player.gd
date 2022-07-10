@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 var velocity: Vector2 = Vector2.ZERO
 var unextrapolated_physics_position: Vector2 = Vector2.ZERO
@@ -38,6 +39,10 @@ func apply_friction():
 
 func apply_velocity():
 	var _no_return = move_and_slide(velocity, Vector2.ZERO)
+
+func spawn_at(spawn_position: Vector2):
+	global_transform.origin = spawn_position
+	unextrapolated_physics_position = spawn_position
 
 func handle_movement_extrapolation():
 	# Extrapolate the player's position in space between physics frames to smooth motion on framerates higher than the physics tickrate
