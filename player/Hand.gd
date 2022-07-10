@@ -15,9 +15,8 @@ func update_hand_position(mouse_global_position: Vector2):
 		position = to_mouse.normalized() *  min(to_mouse.length(), max_distance_from_player)
 		emit_signal("hand_position_updated")
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		update_hand_position(get_global_mouse_position())
+func _process(delta):
+	update_hand_position(get_global_mouse_position())
 
 func get_weapons() -> Array:
 	var held_weapons = []
