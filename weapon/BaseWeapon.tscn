@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://asset/Block_white32x32.png" type="Texture" id=1]
+[ext_resource path="res://weapon/BaseWeapon.gd" type="Script" id=2]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.72549, 0.490196, 0.937255, 1 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
