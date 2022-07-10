@@ -22,7 +22,7 @@ texture = ExtResource( 1 )
 
 [node name="HeadSprite" type="Sprite" parent="."]
 modulate = Color( 0.87451, 0.588235, 0.0431373, 1 )
-scale = Vector2( 0.4, 0.15 )
+scale = Vector2( 0.35, 0.25 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -34,7 +34,7 @@ script = ExtResource( 3 )
 max_distance_from_player = 20.0
 
 [node name="Sprite" type="Sprite" parent="Hand"]
-modulate = Color( 1, 0.788235, 0.294118, 1 )
+modulate = Color( 0.87451, 0.588235, 0.0431373, 1 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 1 )
 

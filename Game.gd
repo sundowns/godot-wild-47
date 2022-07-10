@@ -12,6 +12,7 @@ var player = null
 func _ready():
 	current_level = level_to_load.instance()
 	level_anchor.add_child(current_level)
+	LevelStateDependencies.find_node_references(self)
 	player = spawn_player(current_level.get_player_spawn_position())
 
 func spawn_player(spawn_position: Vector2) -> Player:

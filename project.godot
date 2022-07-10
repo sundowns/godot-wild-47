@@ -54,6 +54,10 @@ config/name="Wildjam- 47"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+LevelStateDependencies="*res://shared/LevelStateDependencies.gd"
+
 [display]
 
 window/size/width=1280

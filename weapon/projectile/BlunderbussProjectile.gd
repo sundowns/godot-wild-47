@@ -7,6 +7,7 @@ var knockback: float = 0
 var linear_direction: Vector2 = Vector2.ZERO
 
 func _on_impact(_body_rid, _body, _body_shape_index, _local_shape_index):
+	._on_impact(_body_rid, _body, _body_shape_index, _local_shape_index)
 	# TODO: Do some damage, spawn an explosion, etc
 	expire()
 

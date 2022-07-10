@@ -3,6 +3,8 @@ class_name Projectile
 
 var owner_id: int
 
+export(PackedScene) var impact_scene: PackedScene
+
 onready var expiry_timer: Timer = $ExpiryTimer
 export(float) var time_to_live: float = 8
 onready var sprite: Sprite = $Sprite
@@ -15,7 +17,10 @@ func set_source(_owner_id: int):
 	owner_id = _owner_id
 
 func _on_impact(_body_rid, _body, _body_shape_index, _local_shape_index):
-	pass
+	if impact_scene:
+		var new_impact = impact_scene.instance()
+		LevelStateDependencies.get("Effects").add_child(new_impact)
+		new_impact.global_transform.origin = global_transform.origin
 
 func expire():
 	queue_free()

@@ -14,8 +14,9 @@ func update_hand_position(mouse_global_position: Vector2):
 	if (to_mouse.length() >= hand_movement_deadzone):
 		position = to_mouse.normalized() *  min(to_mouse.length(), max_distance_from_player)
 		emit_signal("hand_position_updated")
+	look_at(get_global_mouse_position())
 
-func _process(delta):
+func _process(_delta):
 	update_hand_position(get_global_mouse_position())
 
 func get_weapons() -> Array:

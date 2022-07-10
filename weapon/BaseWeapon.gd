@@ -30,6 +30,9 @@ func alternate_fire(_aimcast: RayCast2D, _player: KinematicBody2D, is_press: boo
 	else:
 		emit_signal("alternate_fire_released")
 
+#func _process(delta):
+#	look_at(get_global_mouse_position())
+
 # Just here for an overridable function signature
 func fire(_aimcast: RayCast2D, _player: KinematicBody2D, _is_press: bool):
 	pass

@@ -8,3 +8,5 @@ script = ExtResource( 1 )
 [node name="LevelAnchor" type="Position2D" parent="."]
 
 [node name="Entities" type="Node" parent="."]
+
+[node name="Effects" type="Node" parent="."]
