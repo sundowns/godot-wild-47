@@ -14,6 +14,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+knockback_drag = 500.0
+max_speed = 350.0
 
 [node name="BodySprite" type="Sprite" parent="."]
 modulate = Color( 0.262745, 0.0705882, 0.0705882, 1 )

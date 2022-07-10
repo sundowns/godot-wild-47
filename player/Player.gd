@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Entity
 class_name Player
 
 var velocity: Vector2 = Vector2.ZERO
@@ -21,14 +21,14 @@ func _input(event):
 	if event.is_action("alt_fire"):
 		alt_fire_weapon(event.is_pressed())
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	head_sprite.look_at(get_global_mouse_position())
 	# Reset position to last physics frame before applying movement
 	global_transform.origin = unextrapolated_physics_position
 	apply_acceleration()
 	velocity = velocity.normalized() * min(velocity.length(), max_speed)
 	apply_friction()
-	apply_velocity()
+	apply_velocity(delta)
 	# Store end-of-physics frame position (for post-extrapolation recovery)
 	unextrapolated_physics_position = global_transform.origin
 
@@ -51,8 +51,9 @@ func apply_acceleration():
 func apply_friction(): 
 	velocity = velocity.move_toward(Vector2(0, 0), ground_friction)
 
-func apply_velocity():
-	var _no_return = move_and_slide(velocity, Vector2.ZERO)
+func apply_velocity(delta: float):
+	var _no_return = move_and_slide(velocity + knockback, Vector2.ZERO)
+	apply_knockback_drag(delta)
 
 func spawn_at(spawn_position: Vector2):
 	global_transform.origin = spawn_position

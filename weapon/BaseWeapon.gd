@@ -4,6 +4,7 @@ class_name Weapon
 export(float) var damage: float
 export(float) var knockback_magnitude: float
 export(bool) var has_alternate_fire: bool = false
+export(float) var recoil_magnitude: float = 1.0
 
 onready var sprite = $Sprite
 

@@ -10,13 +10,14 @@ export(float) var projectile_count: int = 4
 func initialise():
 	pass
 
-func fire(aimcast: RayCast2D, _player, is_press: bool):
+func fire(aimcast: RayCast2D, player, is_press: bool):
 	if is_press:
 		var angle_interval_radians = total_firing_angle_radians / projectile_count
-		var aim_direction = -aimcast.cast_to.normalized()
+		var aim_direction = aimcast.cast_to.normalized()
 		for number in range(projectile_count):
-			var rotated_direction = -aim_direction.rotated((-total_firing_angle_radians/2) + angle_interval_radians/2 +  (angle_interval_radians * number))
+			var rotated_direction = aim_direction.rotated((-total_firing_angle_radians/2) + angle_interval_radians/2 +  (angle_interval_radians * number))
 			spawn_projectile(rotated_direction)
+		player.push(-aim_direction * recoil_magnitude)
 
 func spawn_projectile(direction: Vector2):
 	var new_projectile = projectile_scene.instance()
