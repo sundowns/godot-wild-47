@@ -17,7 +17,7 @@ func _physics_process(_delta):
 	# Store end-of-physics frame position (for post-extrapolation recovery)
 	unextrapolated_physics_position = global_transform.origin
 
-func _process(delta):
+func _process(_delta):
 	handle_movement_extrapolation()
 
 func apply_acceleration():
@@ -37,7 +37,7 @@ func apply_friction():
 	velocity = velocity.move_toward(Vector2(0, 0), ground_friction)
 
 func apply_velocity():
-	move_and_slide(velocity, Vector2.ZERO)
+	var _no_return = move_and_slide(velocity, Vector2.ZERO)
 
 func handle_movement_extrapolation():
 	# Extrapolate the player's position in space between physics frames to smooth motion on framerates higher than the physics tickrate
