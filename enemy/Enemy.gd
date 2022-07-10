@@ -10,7 +10,7 @@ onready var state_machine: StateMachine = $StateMachine
 onready var collision_shape: CollisionShape2D = $CollisionShape2D
 onready var health = max_health
 
-var velocity = Vector3.ZERO
+var velocity = Vector2.ZERO
 var can_attack := true
 var is_dead := false
 var queued_for_death = false
