@@ -9,7 +9,7 @@ export(float) var max_speed: float = 450
 export(float) var ground_friction: float = 15.0 # per physics tick
 
 onready var hand: Hand = $Hand
-onready var head_sprite: Sprite = $HeadSprite
+onready var head = $Head
 onready var body_sprite: Sprite = $BodySprite
 
 const aimcast_length: int = 10000
@@ -22,7 +22,7 @@ func _input(event):
 		alt_fire_weapon(event.is_pressed())
 
 func _physics_process(delta):
-	head_sprite.look_at(get_global_mouse_position())
+	head.look_at(get_global_mouse_position())
 	# Reset position to last physics frame before applying movement
 	global_transform.origin = unextrapolated_physics_position
 	apply_acceleration()
@@ -61,7 +61,7 @@ func spawn_at(spawn_position: Vector2):
 # warning-ignore:return_value_discarded
 	hand.connect("hand_position_updated", self, "_on_hand_position_update")
 	for weapon in hand.get_weapons():
-		weapon.initialise()
+		weapon.initialise(hand)
 
 func handle_movement_extrapolation():
 	# Extrapolate the player's position in space between physics frames to smooth motion on framerates higher than the physics tickrate

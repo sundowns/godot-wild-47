@@ -6,7 +6,13 @@ signal hand_position_updated
 export(float) var max_distance_from_player: float = 16.0
 export(float) var hand_movement_deadzone: float = 1.0
 
+onready var sprite = $Sprite
 onready var weapon_anchor: Node2D = $WeaponAnchor
+
+const hand_sprite_frame_map = {
+	"together": Rect2(0, 0, 64, 64),
+	"rifle": Rect2(64, 0, 64, 64)
+}
 
 func update_hand_position(mouse_global_position: Vector2):
 	var parent_position = get_parent().global_transform.origin
@@ -25,3 +31,7 @@ func get_weapons() -> Array:
 		if child is Weapon:
 			held_weapons.append(child)
 	return held_weapons
+
+func set_sprite_action(sprite_frame_name: String):
+	assert(hand_sprite_frame_map[sprite_frame_name], "Unexpected sprite_frame_name in hand set_sprite_action %s" % sprite_frame_name)
+	sprite.texture.region = hand_sprite_frame_map[sprite_frame_name]

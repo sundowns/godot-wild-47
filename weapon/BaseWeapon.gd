@@ -5,6 +5,7 @@ export(float) var damage: float
 export(float) var knockback_magnitude: float
 export(bool) var has_alternate_fire: bool = false
 export(float) var recoil_magnitude: float = 1.0
+export(String, "together", "rifle") var hand_animation_name: String = "together"
 
 onready var sprite = $Sprite
 
@@ -13,8 +14,11 @@ var is_ready := true
 signal alternate_fire_pressed
 signal alternate_fire_released
 
-func initialise():
-	pass
+func initialise(hand):
+	if hand:
+		hand.set_sprite_action(hand_animation_name)
+	else:
+		print("Weapon initialised with non-Hand parent")
 
 func gun_fired():
 	is_ready = false

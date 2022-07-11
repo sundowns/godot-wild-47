@@ -1,6 +1,6 @@
 extends Weapon
 
-func initialise():
+func initialise(hand: Hand):
 	pass
 
 func alternate_fire(aimcast: RayCast2D, player: KinematicBody2D, is_press: bool):
