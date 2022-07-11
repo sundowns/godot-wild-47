@@ -12,6 +12,8 @@ onready var hand: Hand = $Hand
 onready var head = $Head
 onready var body_sprite: Sprite = $BodySprite
 
+var pickupable_weapon: WeakRef = null
+
 const aimcast_length: int = 10000
 onready var aimcast: RayCast2D = $AimCast
 
@@ -20,6 +22,8 @@ func _input(event):
 		fire_weapon(event.is_pressed())
 	if event.is_action("alt_fire"):
 		alt_fire_weapon(event.is_pressed())
+	if event.is_action("pickup"):
+		attempt_weapon_pickup()
 
 func _physics_process(delta):
 	head.look_at(get_global_mouse_position())
@@ -68,7 +72,6 @@ func handle_movement_extrapolation():
 	global_transform.origin = unextrapolated_physics_position
 	var _no_return = move_and_collide((velocity + knockback) * ((1.0 / float(Engine.iterations_per_second)) * Engine.get_physics_interpolation_fraction()) * Engine.time_scale)
 
-
 func _on_hand_position_update():
 	var to_hand = (hand.global_transform.origin - global_transform.origin).normalized()
 	aimcast.cast_to = to_hand * aimcast_length
@@ -80,3 +83,25 @@ func fire_weapon(is_press: bool):
 func alt_fire_weapon(is_press: bool):
 	for weapon in hand.get_weapons():
 		weapon.alternate_fire(aimcast, self, is_press)
+
+func _on_ItemDetectionArea_area_entered(area):
+	var parent = area.get_parent() 
+	if parent is Weapon and (not pickupable_weapon or (pickupable_weapon and parent != pickupable_weapon.get_ref())):
+		hand.set_sprite_action("pickup")
+		pickupable_weapon = weakref(parent)
+
+func attempt_weapon_pickup():
+	if pickupable_weapon:
+		var weapon = pickupable_weapon.get_ref()
+		if weapon:
+			var parent = weapon.get_parent()
+			parent.remove_child(weapon)
+			hand.pickup(weapon)
+			pickupable_weapon = null
+
+func _on_ItemDetectionArea_area_exited(area):
+#	pass
+	var parent = area.get_parent() 
+	if pickupable_weapon and pickupable_weapon.get_ref() == parent:
+		hand.set_sprite_action("together")
+		pickupable_weapon = null

@@ -3,13 +3,15 @@
 [ext_resource path="res://asset/Block_white32x32.png" type="Texture" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
 [ext_resource path="res://player/Hand.gd" type="Script" id=3]
-[ext_resource path="res://weapon/Blunderbuss.tscn" type="PackedScene" id=4]
 [ext_resource path="res://asset/player_spritesheet.png" type="Texture" id=5]
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 1
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 16.0
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 1
@@ -45,8 +47,14 @@ texture = SubResource( 2 )
 
 [node name="WeaponAnchor" type="Node2D" parent="Hand"]
 
-[node name="Blunderbuss" parent="Hand/WeaponAnchor" instance=ExtResource( 4 )]
-hand_animation_name = "rifle"
+[node name="ItemDetectionArea" type="Area2D" parent="Hand"]
+collision_layer = 0
+collision_mask = 64
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/ItemDetectionArea"]
+shape = SubResource( 4 )
 
 [node name="Head" type="Node2D" parent="."]
 scale = Vector2( 0.7, 0.7 )
@@ -69,3 +77,6 @@ current = true
 zoom = Vector2( 0.7, 0.7 )
 smoothing_enabled = true
 smoothing_speed = 3.0
+
+[connection signal="area_entered" from="Hand/ItemDetectionArea" to="." method="_on_ItemDetectionArea_area_entered"]
+[connection signal="area_exited" from="Hand/ItemDetectionArea" to="." method="_on_ItemDetectionArea_area_exited"]

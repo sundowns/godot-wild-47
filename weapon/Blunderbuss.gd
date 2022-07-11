@@ -9,11 +9,13 @@ export(float) var total_firing_angle_degrees: float = 20
 onready var total_firing_angle_radians: float = deg2rad(total_firing_angle_degrees)
 export(float) var projectile_count: int = 4
 
+
 func initialise(hand):
 	.initialise(hand)
 
 func fire(aimcast: RayCast2D, player, is_press: bool):
-	if is_press:
+	if is_press and is_ready:
+		.fire(aimcast, player, is_press)
 		var angle_interval_radians = total_firing_angle_radians / projectile_count
 		var aim_direction = aimcast.cast_to.normalized()
 		for number in range(projectile_count):
@@ -28,3 +30,4 @@ func spawn_projectile(direction: Vector2):
 	add_child(new_projectile)
 	new_projectile.global_transform.origin = muzzle.global_transform.origin
 	new_projectile.launch()
+

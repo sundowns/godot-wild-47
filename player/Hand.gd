@@ -11,8 +11,13 @@ onready var weapon_anchor: Node2D = $WeaponAnchor
 
 const hand_sprite_frame_map = {
 	"together": Rect2(0, 0, 64, 64),
-	"rifle": Rect2(64, 0, 64, 64)
+	"rifle": Rect2(64, 0, 64, 64),
+	"pickup": Rect2(128, 0, 64, 64)
 }
+
+func _ready():
+	if get_weapons().empty():
+		set_sprite_action("together")
 
 func update_hand_position(mouse_global_position: Vector2):
 	var parent_position = get_parent().global_transform.origin
@@ -35,3 +40,10 @@ func get_weapons() -> Array:
 func set_sprite_action(sprite_frame_name: String):
 	assert(hand_sprite_frame_map[sprite_frame_name], "Unexpected sprite_frame_name in hand set_sprite_action %s" % sprite_frame_name)
 	sprite.texture.region = hand_sprite_frame_map[sprite_frame_name]
+
+func pickup(weapon): 
+	weapon.on_pickup()
+	weapon_anchor.add_child(weapon)
+	weapon.global_transform.origin = weapon_anchor.global_transform.origin
+	weapon.initialise(self)
+	set_sprite_action(weapon.hand_animation_name)
