@@ -18,6 +18,8 @@ func set_properties(_damage: float, _knockback: float, direction: Vector2):
 
 func launch():
 	apply_central_impulse(linear_direction * base_speed)
+	sprite.look_at(global_transform.origin +  linear_direction)
+	sprite.rotation += PI/2
 
 func handle_movement_extrapolation():
 	sprite.transform.origin = linear_direction * base_speed * ((1.0 / float(Engine.iterations_per_second)) * Engine.get_physics_interpolation_fraction()) * Engine.time_scale
