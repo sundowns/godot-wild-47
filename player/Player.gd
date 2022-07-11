@@ -66,7 +66,8 @@ func spawn_at(spawn_position: Vector2):
 func handle_movement_extrapolation():
 	# Extrapolate the player's position in space between physics frames to smooth motion on framerates higher than the physics tickrate
 	global_transform.origin = unextrapolated_physics_position
-	var _no_return = move_and_collide(velocity * ((1.0 / float(Engine.iterations_per_second)) * Engine.get_physics_interpolation_fraction()) * Engine.time_scale)
+	var _no_return = move_and_collide((velocity + knockback) * ((1.0 / float(Engine.iterations_per_second)) * Engine.get_physics_interpolation_fraction()) * Engine.time_scale)
+
 
 func _on_hand_position_update():
 	var to_hand = (hand.global_transform.origin - global_transform.origin).normalized()
